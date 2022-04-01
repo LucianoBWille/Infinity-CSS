@@ -4,13 +4,24 @@
   box-sizing: border-box;
 }
 
+:root{
+  --travel-time: 3s;
+  /* --travel-time: 4s; */
+  --color-change-time: 5s;
+  /* --color-change-time: 8s; */
+  --background-color: hsl(120, 100%, 5%);
+  /* --background-color: #042104; */
+  --dot-color: hsl(120, 100%, 45%);
+  /* --dot-color: #00ff0a; */
+}
+
 section {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #042104;
-  animation: animateColor 8s linear infinite;
+  background: var(--background-color);
+  animation: animateColor var(--color-change-time) linear infinite;
 }
 
 @keyframes animateColor {
@@ -50,17 +61,17 @@ section .container .circle span::before{
   top: calc(50% - 7.5px);
   width: 15px;
   height: 15px;
-  background: #00ff0a;
+  background: var(--dot-color);
   border-radius: 50%;
-  box-shadow: 0 0 10px #00ff0a,
-  0 0 20px #00ff0a,
-  0 0 40px #00ff0a,
-  0 0 60px #00ff0a,
-  0 0 80px #00ff0a,
-  0 0 100px #00ff0a;
+  box-shadow: 0 0 10px var(--dot-color),
+  0 0 20px var(--dot-color),
+  0 0 40px var(--dot-color),
+  0 0 60px var(--dot-color),
+  0 0 80px var(--dot-color),
+  0 0 100px var(--dot-color);
   transform: scale(0.1);
-  animation: animate 4s linear infinite;
-  animation-delay: calc(0.1s * var(--i));
+  animation: animate var(--travel-time) linear infinite;
+  animation-delay: calc(var(--travel-time) / 40 * var(--i));
 }
 
 @keyframes animate {
@@ -77,5 +88,5 @@ section .container .circle:nth-child(2) {
 }
 
 section .container .circle:nth-child(2) span::before {
-  animation-delay: calc(-0.1s * var(--i))
+  animation-delay: calc(var(--travel-time) / 40 * var(--i) * (-1))
 }
