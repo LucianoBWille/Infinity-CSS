@@ -5,15 +5,16 @@
 }
 
 :root{
-  --travel-time: 3s;
+  --travel-time: 3.5s;
   /* --travel-time: 4s; */
-  --color-change-time: 5s;
+  --color-change-time: 10s;
   /* --color-change-time: 8s; */
   --background-color: hsl(120, 100%, 5%);
-  /* --background-color: #042104; */
-  --dot-color: hsl(120, 100%, 45%);
+  /* --background-color: #042104;; */
+  --dot-color: hsl(120, 100%, 40%);
   /* --dot-color: #00ff0a; */
-  --proportion-reason: min(1.25vh, 1vw);
+  --proportion-reason: min(1vh, 1vw);
+  --shadow-size: 1;
 }
 
 section {
@@ -51,7 +52,7 @@ section .container .circle span {
   left: 0;
   width: 100%;
   height: 100%;
-  transform: rotate(calc(18deg * var(--i)));
+  transform: rotate(calc((360deg / var(--max-i)) * var(--i)));
   /* 360 / 20 = 18 deg */
 }
 
@@ -64,22 +65,23 @@ section .container .circle span::before{
   height: 15px;
   background: var(--dot-color);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--dot-color),
-  0 0 20px var(--dot-color),
-  0 0 40px var(--dot-color),
-  0 0 60px var(--dot-color),
-  0 0 80px var(--dot-color),
-  0 0 100px var(--dot-color);
+  box-shadow: 0 0 calc(var(--proportion-reason) * var(--shadow-size) * 1) var(--dot-color),
+              0 0 calc(var(--proportion-reason) * var(--shadow-size) * 2) var(--dot-color),
+              0 0 calc(var(--proportion-reason) * var(--shadow-size) * 4) var(--dot-color),
+              0 0 calc(var(--proportion-reason) * var(--shadow-size) * 6) var(--dot-color),
+              0 0 calc(var(--proportion-reason) * var(--shadow-size) * 8) var(--dot-color),
+              0 0 calc(var(--proportion-reason) * var(--shadow-size) * 10) var(--dot-color);
   transform: scale(0.1);
   animation: animate var(--travel-time) linear infinite;
-  animation-delay: calc(var(--travel-time) / 40 * var(--i));
+  animation-delay: calc(var(--travel-time) / (var(--max-i)*2) * var(--i));
 }
 
 @keyframes animate {
   0% {
-    transform: scale(1);
+    transform: scale(0.8);
   }
-  50%,100% {
+  /* 50%, */
+  85%,100% {
     transform: scale(0.1);
   }
 }
@@ -89,5 +91,5 @@ section .container .circle:nth-child(2) {
 }
 
 section .container .circle:nth-child(2) span::before {
-  animation-delay: calc(var(--travel-time) / 40 * var(--i) * (-1))
+  animation-delay: calc(var(--travel-time) / (var(--max-i)*2) * var(--i) * (-1))
 }
